@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Welcome
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,28 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Welcome!</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-content class="ion-padding">
+    <h2>Login</h2>
+    <ion-list>
+      <ion-item>
+        <ion-input placeholder="Username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox labelPlacement="end" justify="start">
+          Remain Logged In
+        </ion-checkbox>
+      </ion-item>
+    </ion-list>
+    <ion-button size="large" shape="round" color="success" routerLink="/account">Login<ion-icon slot="end" name="log-in-outline"></ion-icon></ion-button>
+  </ion-content>
+  
+
+  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>
