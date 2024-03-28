@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class Tab2Page implements OnInit {
 
-  username = '';
+  username: string = '';
   Count: number = 0;
 
   constructor( private router: Router) {
@@ -29,7 +29,7 @@ export class Tab2Page implements OnInit {
 
   login() {
     this.incrementCounter();
-    this.router.navigateByUrl('/account');
+    this.router.navigate(['/account', this.username]);
   }
 
   ngOnInit(): void {
