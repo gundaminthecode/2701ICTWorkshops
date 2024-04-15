@@ -34,7 +34,10 @@ export class Tab1Page {
 
   async openAddContactModal(){
     const modal = await this.modalController.create({
-      component: AddContactModalComponent
+      component: AddContactModalComponent,
+      componentProps: {
+        mode: 'add'
+      }
     });
     modal.onDidDismiss().then((data) => {
       if (data && data.data) {
@@ -45,9 +48,37 @@ export class Tab1Page {
     return await modal.present();
   }
 
+  async openEditContactModal(contact: Contact){
+    const modal = await this.modalController.create({
+      component: AddContactModalComponent,
+      componentProps: {
+        mode: 'edit',
+        contact: contact, // Pass the contact to edit
+      }
+    });
+    modal.onDidDismiss().then((data) => {
+      if (data && data.data) {
+        const contactData = data.data;
+        this.saveContact(contact, contactData); // Call saveContact with edited data
+      }
+    });
+    return await modal.present();
+  }
+
   addContact(contactData: {firstName: string, lastName: string, email: string}) {
     const newContact = new Contact(contactData.firstName, contactData.lastName, contactData.email)
     this.contacts.push(newContact);
+  }
+
+  saveContact(originalContact: Contact, editedContactData: {firstName: string, lastName: string, email: string}) {
+    // Find the index of the original contact in the array
+    const index = this.contacts.indexOf(originalContact);
+    if (index !== -1) {
+      // Update the contact with edited data
+      this.contacts[index].firstName = editedContactData.firstName;
+      this.contacts[index].lastName = editedContactData.lastName;
+      this.contacts[index].email = editedContactData.email;
+    }
   }
 
   deleteContact(contact: Contact) {

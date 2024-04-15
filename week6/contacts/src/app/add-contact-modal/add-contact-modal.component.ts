@@ -13,6 +13,8 @@ import { Contact } from 'src/app/tab1/tab1.page'
 })
 export class AddContactModalComponent  implements OnInit {
 
+  @Input() mode: 'add' | 'edit' = 'add';
+  @Input() contact: Contact | null = null;
 
   firstName: string = "";
   lastName: string = "";
@@ -21,7 +23,11 @@ export class AddContactModalComponent  implements OnInit {
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {
-   
+    if (this.mode === "edit" && this.contact) {
+      this.firstName = this.contact.firstName;
+      this.lastName = this.contact.lastName;
+      this.email = this.contact.email;
+    }
   }
 
   dismissModal() {
@@ -29,6 +35,15 @@ export class AddContactModalComponent  implements OnInit {
   }
 
   addContact() {
+    const contact = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+    };
+    this.modalController.dismiss(contact);
+  }
+
+  saveContact() {
     const contact = {
       firstName: this.firstName,
       lastName: this.lastName,

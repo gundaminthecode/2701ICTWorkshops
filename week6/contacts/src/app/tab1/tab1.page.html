@@ -20,7 +20,7 @@
   <ion-content class="ion-padding">
     <ion-list>
       <ion-item-sliding *ngFor="let contact of contacts; index as i">
-        <ion-item>
+        <ion-item (click)="openEditContactModal(contact)">
           <p>{{i+1}}. {{contact.lastName}}, {{contact.firstName}}</p>
         </ion-item>
         <ion-item-options side="end">
