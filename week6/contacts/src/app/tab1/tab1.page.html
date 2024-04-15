@@ -11,7 +11,7 @@
     <ion-toolbar>
          
       <ion-title size="large">Contacts</ion-title>
-      <ion-button (click)="addContact()" fill="clear">
+      <ion-button fill="clear" slot="end" (click)="openAddContactModal()">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-toolbar>
@@ -19,9 +19,16 @@
 
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item *ngFor="let contact of contacts; index as i">
-        <p>{{i+1}}. {{contact.lastName}}, {{contact.firstName}}</p>
-      </ion-item>
+      <ion-item-sliding *ngFor="let contact of contacts; index as i">
+        <ion-item>
+          <p>{{i+1}}. {{contact.lastName}}, {{contact.firstName}}</p>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteContact(contact)">
+            Delete
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </ion-content>
 </ion-content>
