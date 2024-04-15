@@ -9,9 +9,19 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+         
+      <ion-title size="large">Contacts</ion-title>
+      <ion-button (click)="addContact()" fill="clear">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item *ngFor="let contact of contacts; index as i">
+        <p>{{i+1}}. {{contact.lastName}}, {{contact.firstName}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-content>
