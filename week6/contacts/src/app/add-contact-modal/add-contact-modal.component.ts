@@ -20,10 +20,13 @@ export class AddContactModalComponent  implements OnInit {
   lastName: string = "";
   email: string = "";
 
+  modeName: string = "Add";
+
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {
     if (this.mode === "edit" && this.contact) {
+      this.modeName = "Update";
       this.firstName = this.contact.firstName;
       this.lastName = this.contact.lastName;
       this.email = this.contact.email;
