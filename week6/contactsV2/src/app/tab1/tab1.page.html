@@ -13,5 +13,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <!-- <ion-item-sliding > -->
+        <ion-item *ngFor="let contact of contacts; index as i">
+          <p>{{i+1}}. {{contact.lastName}}, {{contact.firstName}}</p>
+        </ion-item>
+      <!-- </ion-item-sliding> -->
+    </ion-list>
+  </ion-content>
 </ion-content>
