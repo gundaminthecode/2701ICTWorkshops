@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonIcon, IonItemSliding, IonItemOption, IonItemOptions } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
 
@@ -20,7 +20,7 @@ export class Contact {
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonList, IonButton, IonIcon,
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonList, IonButton, IonIcon, IonItemSliding, IonItemOption, IonItemOptions,
     ExploreContainerComponent, CommonModule],
   providers: [ModalController]
 })
@@ -57,6 +57,13 @@ export class Tab1Page {
       const {firstName, lastName, email} = contactData;
       const newContact = new Contact (firstName, lastName, email);
       this.contacts.push(newContact)
+    }
+  }
+
+  deleteContact(contact: Contact){
+    const index = this.contacts.indexOf(contact);
+    if (index !== -1) {
+      this.contacts.splice(index, 1);
     }
   }
 }
