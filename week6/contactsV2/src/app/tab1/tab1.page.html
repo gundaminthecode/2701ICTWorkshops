@@ -23,6 +23,9 @@
           <p>{{i+1}}. {{contact.lastName}}, {{contact.firstName}}</p>
         </ion-item>
         <ion-item-options>
+          <ion-item-option color="success" (click)="openContactModalEdit(contact)">
+            Edit
+          </ion-item-option>
           <ion-item-option color="danger" (click)="deleteContact(contact)">
             Delete
           </ion-item-option>
