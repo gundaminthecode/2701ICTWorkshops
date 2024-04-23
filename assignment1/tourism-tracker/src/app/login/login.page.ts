@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginPage implements OnInit {
   username: string = '';
   Count: number = 0;
 
-  constructor(private router: Router, private authservice: AuthService) {
+  constructor(private router: Router, private authservice: AuthService, private usernameService: UsernameService) {
     addIcons({ logInOutline });
   }
 
@@ -29,10 +30,12 @@ export class LoginPage implements OnInit {
 
   login() {
     this.incrementCounter();
-    console.log(this.authservice.isLoggedIn);
+    //console.log(this.authservice.isLoggedIn);
     this.authservice.isLoggedIn = true;
-    console.log(this.authservice.isLoggedIn);
-    console.log(this.username);
+    //console.log(this.authservice.isLoggedIn);
+    this.usernameService.username = this.username;
+    //console.log("This Username", this.username);
+    //console.log("This UsernameService", this.usernameService.username);
     this.router.navigate(['']);
   }
 
