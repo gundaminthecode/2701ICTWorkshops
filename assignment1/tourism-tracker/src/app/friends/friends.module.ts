@@ -13,8 +13,9 @@ import { FriendsPage } from './friends.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    FriendsPageRoutingModule
+    FriendsPageRoutingModule,
+    FriendsPage
   ],
-  declarations: [FriendsPage]
+  //declarations: [FriendsPage]
 })
 export class FriendsPageModule {}
