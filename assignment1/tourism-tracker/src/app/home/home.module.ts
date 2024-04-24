@@ -13,8 +13,9 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    HomePage
   ],
-  declarations: [HomePage]
+  //declarations: [HomePage]
 })
 export class HomePageModule {}
