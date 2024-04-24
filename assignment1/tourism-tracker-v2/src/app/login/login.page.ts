@@ -1,20 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { 
+  IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonIcon, IonCheckbox, IonItem, IonInput 
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { logInOutline } from 'ionicons/icons';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+//import { AuthService } from '../auth.service';
+//import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports : [
+    IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonIcon, IonCheckbox, IonItem, IonInput, FormsModule
+  ]
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  username: string = '';
+  Count: number = 0;
 
-  ngOnInit() {
+  constructor(private router: Router, 
+    //private authservice: AuthService, private usernameService: UsernameService
+  ) {
+    addIcons({ logInOutline });
   }
 
+  incrementCounter(){
+    this.Count += 1;
+  }
+
+  login() {
+    this.incrementCounter();
+    //console.log(this.authservice.isLoggedIn);
+    //this.authservice.isLoggedIn = true;
+    //console.log(this.authservice.isLoggedIn);
+    //this.usernameService.username = this.username;
+    //console.log("This Username", this.username);
+    //console.log("This UsernameService", this.usernameService.username);
+    this.router.navigate(['']);
+  }
+
+  ngOnInit(): void {
+    
+  }
 }
+
