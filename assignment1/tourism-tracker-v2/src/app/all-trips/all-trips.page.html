@@ -13,9 +13,9 @@
 
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item-sliding *ngFor="let trip of allTrips; index as i">
+      <ion-item-sliding *ngFor="let trip of allTrips.slice().reverse(); index as i">
         <ion-item>
-          <p>{{i+1}}. {{trip.journeyName}}, {{trip.locations.length}} Trips</p>
+          <p>{{allTrips.length - i}}. {{trip.journeyName}}, {{trip.locations.length}} Locations</p>
         </ion-item>
         <ion-item-options>
           <ion-item-option>
