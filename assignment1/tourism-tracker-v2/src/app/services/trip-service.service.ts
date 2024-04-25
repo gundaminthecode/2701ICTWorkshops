@@ -43,4 +43,12 @@ export class TripServiceService {
   addTrip(newTrip: Trip) {
     this.allTrips.push(newTrip);
   }
+
+  updateTrip(updatedTrip: Trip) {
+    const index = this.allTrips.findIndex(trip => trip.journeyName === updatedTrip.journeyName && trip.dateStarted === updatedTrip.dateStarted);
+    if (index !== -1) {
+      this.allTrips[index] = updatedTrip;
+    }
+  }
+  
 }

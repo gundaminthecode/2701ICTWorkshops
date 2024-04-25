@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonItemOptions, IonItemOption, IonItem, IonList, IonItemSliding 
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../services/trip-service.service';
+import { Trip } from '../models/trip.model';
+
+import { EditTripModalComponent } from '../modals/edit-trip-modal/edit-trip-modal.component';
 
 @Component({
   selector: 'app-all-trips',
@@ -13,11 +17,13 @@ import { TripServiceService } from '../services/trip-service.service';
   standalone: true,
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonToolbar, IonItemOptions, IonItemOption, IonItem, IonList, IonItemSliding,
-    CommonModule, FormsModule]
+    CommonModule, FormsModule
+  ],
+  providers: [ModalController],
 })
 export class AllTripsPage implements OnInit {
 
-  constructor(private tripService: TripServiceService) { }
+  constructor(private tripService: TripServiceService, private modalController: ModalController) { }
 
   allTrips = this.tripService.allTrips;
 
@@ -29,12 +35,23 @@ export class AllTripsPage implements OnInit {
 
   }
 
-  editTrip(){
-
+  async editTrip(trip: Trip) {
+    const modal = await this.modalController.create({
+      component: EditTripModalComponent,
+      componentProps: {
+        trip: trip // Pass the selected trip to the modal component
+      }
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      // Update the trip in the trip service with the updated trip data
+      this.tripService.updateTrip(data);
+    }
   }
 
   deleteTrip(){
-    
+
   }
 
 }

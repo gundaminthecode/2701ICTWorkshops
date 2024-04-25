@@ -13,10 +13,10 @@ export const routes: Routes = [
   },
   {
     path: 'view-trip-modal',
-    loadComponent: () => import('./modals/view-trip-modal/view-trip-modal.page').then( m => m.ViewTripModalPage)
+    loadComponent: () => import('./modals/view-trip-modal/view-trip-modal.component').then( m => m.ViewTripModalComponent)
   },
   {
     path: 'edit-trip-modal',
-    loadComponent: () => import('./modals/edit-trip-modal/edit-trip-modal.page').then( m => m.EditTripModalPage)
+    loadComponent: () => import('./modals/edit-trip-modal/edit-trip-modal.component').then( m => m.EditTripModalComponent)
   },
 ];
