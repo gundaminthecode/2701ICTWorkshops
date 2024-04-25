@@ -18,13 +18,13 @@
           <p>{{allTrips.length - i}}. {{trip.journeyName}}, {{trip.locations.length}} Locations</p>
         </ion-item>
         <ion-item-options>
-          <ion-item-option>
+          <ion-item-option (click)="viewTrip()">
             View
           </ion-item-option>
-          <ion-item-option color="success" >
+          <ion-item-option color="success" (click)="editTrip()">
             Edit
           </ion-item-option>
-          <ion-item-option color="danger" >
+          <ion-item-option color="danger" (click)="deleteTrip()">
             Delete
           </ion-item-option>
         </ion-item-options>

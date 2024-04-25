@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
-  IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent
+  IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../services/trip-service.service';
 import { Trip } from '../models/trip.model';
@@ -13,7 +13,7 @@ import { Trip } from '../models/trip.model';
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent,
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle,
     CommonModule, FormsModule, ]
 })
 export class HomePage implements OnInit {

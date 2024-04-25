@@ -12,13 +12,20 @@
   </ion-header>
 
   <ion-content class="ion-padding">
-    <ion-card *ngIf="getCurrentTrip()">
+    <ion-card *ngIf="getCurrentTrip() && getCurrentTrip()?.journeyName">
       <ion-card-header>
         Current Trip Details
       </ion-card-header>
-      <ion-card-content *ngIf="getCurrentTrip()?.journeyName">
-        <h2>Journey Name: {{ getCurrentTrip()?.journeyName }}</h2>
-        <p>Date started: {{ getCurrentTrip()?.dateStarted}}</p>
+      <ion-card-title class="ion-padding">
+        Journey Name: {{ getCurrentTrip()?.journeyName }}
+      </ion-card-title>
+      <ion-card-subtitle class="ion-padding">
+        Date started: {{ getCurrentTrip()?.dateStarted}}
+      </ion-card-subtitle>
+      <ion-card-content>
+        <ion-button>
+          + Add Location
+        </ion-button>
       </ion-card-content>
     </ion-card>
 

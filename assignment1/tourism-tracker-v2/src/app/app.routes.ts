@@ -7,24 +7,16 @@ export const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
     canActivate: [LoginGuard],
   },
-  // {
-  //   path: 'friends',
-  //   loadComponent: () => import('./friends/friends.page').then( m => m.FriendsPage)
-  // },
-  // {
-  //   path: 'account',
-  //   loadComponent: () => import('./account/account.page').then( m => m.AccountPage)
-  // },
-  // {
-  //   path: 'all-trips',
-  //   loadComponent: () => import('./all-trips/all-trips.page').then( m => m.AllTripsPage)
-  // },
-  // {
-  //   path: 'home',
-  //   loadComponent: () => import('./home/home.page').then( m => m.HomePage)
-  // },
   {
     path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'view-trip-modal',
+    loadComponent: () => import('./modals/view-trip-modal/view-trip-modal.page').then( m => m.ViewTripModalPage)
+  },
+  {
+    path: 'edit-trip-modal',
+    loadComponent: () => import('./modals/edit-trip-modal/edit-trip-modal.page').then( m => m.EditTripModalPage)
   },
 ];

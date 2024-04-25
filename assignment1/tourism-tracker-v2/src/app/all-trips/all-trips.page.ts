@@ -25,4 +25,16 @@ export class AllTripsPage implements OnInit {
     //console.log(this.allTrips);
   }
 
+  viewTrip(){
+
+  }
+
+  editTrip(){
+
+  }
+
+  deleteTrip(){
+    
+  }
+
 }
