@@ -1,6 +1,7 @@
 export class Trip {
     constructor(
       public journeyName: string, 
+      public currentTrip: boolean,
       public locations: string[], 
       public locationDates: string[],
       public dateStarted: string, 

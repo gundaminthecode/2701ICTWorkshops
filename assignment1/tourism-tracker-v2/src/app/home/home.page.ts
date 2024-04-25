@@ -35,11 +35,15 @@ export class HomePage implements OnInit {
     const journeyName = prompt('Enter journey name:');
 
     if (journeyName) {
-      const newTrip = new Trip(journeyName, [], [], new Date().toISOString(), false);
+      const newTrip = new Trip(journeyName, true, [], [], new Date().toISOString(), false);
       this.tripService.addTrip(newTrip);
     }
 
     this.createTrip();
+  }
+
+  getCurrentTrip() {
+    return this.tripService.allTrips.find(trip => trip.currentTrip === true);
   }
 
 }

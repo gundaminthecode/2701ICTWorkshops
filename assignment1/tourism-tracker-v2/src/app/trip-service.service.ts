@@ -14,6 +14,7 @@ export class TripServiceService {
   allTrips: Trip[] = [
     new Trip(
       'Europe', 
+      false,
       ['Location 1', 'Location 2', 'Location 3'], 
       ['2024-01-01', '2024-01-02', '2024-01-03'], 
       '2024-01-01', 
@@ -22,6 +23,7 @@ export class TripServiceService {
     ),
     new Trip(
       'America', 
+      false,
       ['Location 1', 'Location 2', 'Location 3'], 
       ['2024-02-01', '2024-02-02', '2024-02-03'], 
       '2024-02-01', 
