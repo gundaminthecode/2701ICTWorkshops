@@ -5,6 +5,7 @@ import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../trip-service.service';
+import { Trip } from '../models/trip.model';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,17 @@ export class HomePage implements OnInit {
     console.log(this.tripService.onTrip);
     this.tripService.createTrip();
     console.log(this.tripService.onTrip);
+  }
+
+  addNewTrip() {
+    const journeyName = prompt('Enter journey name:');
+
+    if (journeyName) {
+      const newTrip = new Trip(journeyName, [], [], new Date().toISOString(), false);
+      this.tripService.addTrip(newTrip);
+    }
+
+    this.createTrip();
   }
 
 }

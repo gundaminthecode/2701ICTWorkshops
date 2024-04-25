@@ -14,14 +14,14 @@
   <ion-content class="ion-padding">
     <ion-card *ngIf="tripService.tripExists()">
       <ion-card-header>
-        Trip Details
+        Current Trip Details
       </ion-card-header>
       <ion-card-content>
-        Hi
+        <h2>Journey Name: {{ tripService.allTrips[tripService.allTrips.length - 1].journeyName }}</h2>
       </ion-card-content>
     </ion-card>
 
-    <ion-button *ngIf="!tripService.tripExists()" (click)="createTrip()">
+    <ion-button *ngIf="!tripService.tripExists()" (click)="addNewTrip()">
       Create Trip
     </ion-button>
   </ion-content>

@@ -37,4 +37,8 @@ export class TripServiceService {
   tripExists(): boolean {
     return this.onTrip;
   }
+
+  addTrip(newTrip: Trip) {
+    this.allTrips.push(newTrip);
+  }
 }
