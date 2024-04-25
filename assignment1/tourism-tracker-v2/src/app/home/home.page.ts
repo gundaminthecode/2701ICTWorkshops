@@ -35,7 +35,9 @@ export class HomePage implements OnInit {
     const journeyName = prompt('Enter journey name:');
 
     if (journeyName) {
-      const newTrip = new Trip(journeyName, true, [], [], new Date().toISOString(), false);
+      const currentDate = new Date();
+      const dateStarted = currentDate.toISOString().split('T')[0];
+      const newTrip = new Trip(journeyName, true, [], [], dateStarted, false);
       this.tripService.addTrip(newTrip);
     }
 

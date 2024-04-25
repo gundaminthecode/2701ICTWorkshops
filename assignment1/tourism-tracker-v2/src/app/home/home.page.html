@@ -16,8 +16,9 @@
       <ion-card-header>
         Current Trip Details
       </ion-card-header>
-      <ion-card-content>
-        <h2 *ngIf="getCurrentTrip()?.journeyName">Journey Name: {{ getCurrentTrip()?.journeyName }}</h2>
+      <ion-card-content *ngIf="getCurrentTrip()?.journeyName">
+        <h2>Journey Name: {{ getCurrentTrip()?.journeyName }}</h2>
+        <p>Date started: {{ getCurrentTrip()?.dateStarted}}</p>
       </ion-card-content>
     </ion-card>
 
