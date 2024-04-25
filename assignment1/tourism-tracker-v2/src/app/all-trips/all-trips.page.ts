@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonItemOptions, IonItemOption, IonItem, IonList, IonItemSliding 
 } from '@ionic/angular/standalone';
-import { TripServiceService } from '../trip-service.service';
+import { TripServiceService } from '../services/trip-service.service';
 
 @Component({
   selector: 'app-all-trips',

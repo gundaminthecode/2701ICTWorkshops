@@ -7,7 +7,7 @@ import { logInOutline } from 'ionicons/icons';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../login.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
