@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonItem, IonList,
-  IonLabel,
+  IonLabel, IonInput,
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../services/trip-service.service';
 import { Trip } from '../models/trip.model';
@@ -15,8 +15,9 @@ import { Trip } from '../models/trip.model';
   standalone: true,
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonItem, IonList,
-    IonLabel,
-    CommonModule, FormsModule, ]
+    IonLabel, IonInput,
+    FormsModule, CommonModule
+  ]
 })
 export class HomePage implements OnInit {
 
@@ -25,9 +26,13 @@ export class HomePage implements OnInit {
 
   constructor(
     public tripService: TripServiceService,
-  ) { }
+  ) {
+    
+   }
 
   ngOnInit() {
+    this.newLocation = '';
+    this.newLocationDate = '';
   }
 
   createTrip(){

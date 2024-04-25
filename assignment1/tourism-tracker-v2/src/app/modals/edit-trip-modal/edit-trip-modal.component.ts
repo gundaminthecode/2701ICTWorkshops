@@ -50,8 +50,8 @@ export class EditTripModalComponent  implements OnInit {
   addLocation() {
     if (this.newLocation.trim()) {
       this.locations.push(this.newLocation.trim());
-      this.locationDates.push(this.newLocationDate); // Assuming dateStarted corresponds to the new location
-      this.newLocation = ''; // Clear the input field
+      this.locationDates.push(this.newLocationDate);
+      this.newLocation = '';
     }
   }
 
