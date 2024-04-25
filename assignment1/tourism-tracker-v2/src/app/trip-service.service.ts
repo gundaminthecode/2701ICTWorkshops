@@ -5,5 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class TripServiceService {
 
+  onTrip = false;
+
   constructor() { }
+
+  createTrip(){
+    this.onTrip = true;
+  }
+
+  tripExists(): boolean {
+    return this.onTrip;
+  }
 }
