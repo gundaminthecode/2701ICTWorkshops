@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
-  IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle
+  IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonItem, IonList,
+  IonLabel,
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../services/trip-service.service';
 import { Trip } from '../models/trip.model';
@@ -13,10 +14,14 @@ import { Trip } from '../models/trip.model';
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle,
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonItem, IonList,
+    IonLabel,
     CommonModule, FormsModule, ]
 })
 export class HomePage implements OnInit {
+
+  newLocation: string = "";
+  newLocationDate: string = "";
 
   constructor(
     public tripService: TripServiceService,
@@ -46,6 +51,27 @@ export class HomePage implements OnInit {
 
   getCurrentTrip() {
     return this.tripService.allTrips.find(trip => trip.currentTrip === true);
+  }
+
+  getCurrentTripLocationDates(index: number): string | undefined {
+    const currentTrip = this.getCurrentTrip();
+    if (currentTrip && currentTrip.locationDates) {
+       return currentTrip.locationDates[index];
+    }
+    return undefined;
+   }
+
+  addLocation() {
+    if (this.newLocation.trim()) {
+      this.getCurrentTrip()?.locations.push(this.newLocation.trim());
+      this.getCurrentTrip()?.locationDates.push(this.newLocationDate);
+      this.newLocation = '';
+    }
+  }
+
+  removeLocation(index: number) {
+    this.getCurrentTrip()?.locations.splice(index, 1);
+    this.getCurrentTrip()?.locationDates.splice(index, 1);
   }
 
 }

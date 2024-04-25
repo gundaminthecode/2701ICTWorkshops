@@ -23,9 +23,24 @@
         Date started: {{ getCurrentTrip()?.dateStarted}}
       </ion-card-subtitle>
       <ion-card-content>
-        <ion-button>
-          + Add Location
-        </ion-button>
+        <ion-label>Add Location:</ion-label>
+        <ion-item>
+          <ion-input [(ngModel)]="newLocation" name="newLocation" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="newLocationDate" name="newLocationDate" type="date"></ion-input>
+        </ion-item>
+        
+        
+        <ion-button (click)="addLocation()">Add</ion-button>
+      </ion-card-content>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let location of getCurrentTrip()?.locations; let i = index">
+            {{ location }} ({{ getCurrentTripLocationDates(i) || ''}})
+            <ion-button (click)="removeLocation(i)" slot="end">Delete</ion-button>
+          </ion-item>
+        </ion-list>
       </ion-card-content>
     </ion-card>
 

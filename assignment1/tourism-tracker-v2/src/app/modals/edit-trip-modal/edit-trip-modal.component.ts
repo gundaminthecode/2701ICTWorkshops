@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { 
-  IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonInput, IonCard
+  IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonInput, IonCard, IonCardContent, IonCheckbox, IonLabel
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Trip } from 'src/app/models/trip.model';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -13,8 +14,8 @@ import { Trip } from 'src/app/models/trip.model';
   styleUrls: ['./edit-trip-modal.component.scss'],
   standalone: true,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonInput, IonCard,
-    FormsModule,
+    IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonInput, IonCard, IonCheckbox, IonCardContent, IonLabel,
+    FormsModule, CommonModule
   ]
 })
 export class EditTripModalComponent  implements OnInit {
@@ -28,6 +29,9 @@ export class EditTripModalComponent  implements OnInit {
   dateStarted: string = "";
   complete: boolean = false;
   dateEnded: string = "";
+
+  newLocation: string = "";
+  newLocationDate: string = "";
 
   constructor(private modalController: ModalController) { }
 
@@ -43,21 +47,35 @@ export class EditTripModalComponent  implements OnInit {
     }
   }
 
+  addLocation() {
+    if (this.newLocation.trim()) {
+      this.locations.push(this.newLocation.trim());
+      this.locationDates.push(this.newLocationDate); // Assuming dateStarted corresponds to the new location
+      this.newLocation = ''; // Clear the input field
+    }
+  }
+
+  removeLocation(index: number) {
+    this.locations.splice(index, 1);
+    this.locationDates.splice(index, 1);
+  }
+
   dismiss() {
     this.modalController.dismiss();
   }
 
   updateJourney() {
-    const updatedTrip: Trip = {
-      journeyName: this.journeyName,
-      currentTrip: this.currentTrip,
-      locations: this.locations,
-      locationDates: this.locationDates,
-      dateStarted: this.dateStarted,
-      complete: this.complete,
-      dateEnded: this.dateEnded
-    };
-    this.modalController.dismiss(updatedTrip);
+    if (this.trip) {
+      this.trip.journeyName = this.journeyName;
+      this.trip.currentTrip = this.currentTrip;
+      this.trip.locations = this.locations;
+      this.trip.locationDates = this.locationDates;
+      this.trip.dateStarted = this.dateStarted;
+      this.trip.complete = this.complete;
+      this.trip.dateEnded = this.dateEnded;
+  
+      // Dismiss the modal and pass the updated trip data back to the calling component
+      this.modalController.dismiss(this.trip);
+    }
   }
-
 }
