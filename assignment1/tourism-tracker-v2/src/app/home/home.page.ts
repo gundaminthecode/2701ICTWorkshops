@@ -7,6 +7,8 @@ import {
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../services/trip-service.service';
 import { Trip } from '../models/trip.model';
+import { ModalController } from '@ionic/angular';
+import { MapSelectorModalPage } from '../modals/map-selector-modal/map-selector-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,8 @@ import { Trip } from '../models/trip.model';
     IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonItem, IonList,
     IonLabel, IonInput,
     FormsModule, CommonModule
-  ]
+  ],
+  providers: [ModalController]
 })
 export class HomePage implements OnInit {
 
@@ -26,6 +29,7 @@ export class HomePage implements OnInit {
 
   constructor(
     public tripService: TripServiceService,
+    private modalController: ModalController,
   ) {
     
    }
@@ -79,8 +83,12 @@ export class HomePage implements OnInit {
     this.getCurrentTrip()?.locationDates.splice(index, 1);
   }
 
-  mapSelector(){
-    
+  async mapSelector() {
+    const modal = await this.modalController.create({
+      component: MapSelectorModalPage,
+      cssClass: 'map-selector-modal',
+    });
+    return await modal.present();
   }
 
 }
