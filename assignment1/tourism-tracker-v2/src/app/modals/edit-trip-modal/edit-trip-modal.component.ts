@@ -71,11 +71,19 @@ export class EditTripModalComponent  implements OnInit {
       this.trip.locations = this.locations;
       this.trip.locationDates = this.locationDates;
       this.trip.dateStarted = this.dateStarted;
-      this.trip.complete = this.complete;
+      
+      if (this.complete) {
+        this.trip.complete = true;
+        this.trip.currentTrip = false; // Set currentTrip to false if complete is true
+      } else {
+        this.trip.complete = false;
+      }
+      
       this.trip.dateEnded = this.dateEnded;
   
       // Dismiss the modal and pass the updated trip data back to the calling component
       this.modalController.dismiss(this.trip);
     }
   }
+  
 }

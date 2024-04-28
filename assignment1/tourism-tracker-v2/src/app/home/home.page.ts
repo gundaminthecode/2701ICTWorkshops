@@ -79,4 +79,8 @@ export class HomePage implements OnInit {
     this.getCurrentTrip()?.locationDates.splice(index, 1);
   }
 
+  mapSelector(){
+    
+  }
+
 }
