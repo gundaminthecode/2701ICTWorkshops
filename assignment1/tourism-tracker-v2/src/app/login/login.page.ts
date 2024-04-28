@@ -30,20 +30,15 @@ export class LoginPage implements OnInit {
     addIcons({ logInOutline });
   }
 
+  //login attempts
   incrementCounter(){
     this.Count += 1;
   }
 
   login() {
     this.incrementCounter();
-    //console.log(this.authservice.isLoggedIn);
-    //this.authservice.isLoggedIn = true;
-    //console.log(this.authservice.isLoggedIn);
-    //this.usernameService.username = this.username;
-    //console.log("This Username", this.username);
-    //console.log("This UsernameService", this.usernameService.username);
-    this.loginService.login();
-    this.router.navigate(['']);
+    this.loginService.login(); // tell app that user is logged in
+    this.router.navigate(['']); // redirect to home page
   }
 
   ngOnInit(): void {

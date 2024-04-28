@@ -13,7 +13,8 @@
 
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item-sliding *ngFor="let trip of allTrips.slice().reverse(); index as i">
+      <!-- generate a sliding list of all trips with newest at the top -->
+      <ion-item-sliding *ngFor="let trip of allTrips.slice().reverse(); index as i"> 
         <ion-item>
           <p>{{allTrips.length - i}}. {{trip.journeyName}}, {{trip.locations.length}} Locations</p>
         </ion-item>

@@ -39,13 +39,13 @@ export class AllTripsPage implements OnInit {
     const modal = await this.modalController.create({
       component: EditTripModalComponent,
       componentProps: {
-        trip: trip // Pass the selected trip to the modal component
+        trip: trip // pass any nessecary data to edit trip
       }
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
     if (data) {
-      // Update the trip in the trip service with the updated trip data
+      // update trip with edited info with close of modal
       this.tripService.updateTrip(data);
     }
   }

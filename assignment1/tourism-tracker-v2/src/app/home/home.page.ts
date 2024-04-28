@@ -40,19 +40,21 @@ export class HomePage implements OnInit {
   }
 
   createTrip(){
-    console.log(this.tripService.onTrip);
+    //console.log(this.tripService.onTrip);
+    // lets tripService know that the user has created a new trip
     this.tripService.createTrip();
-    console.log(this.tripService.onTrip);
+    //console.log(this.tripService.onTrip);
   }
 
   addNewTrip() {
+    // should probs update with a modal or a nicer way instead of a prompt
     const journeyName = prompt('Enter journey name:');
 
     if (journeyName) {
       const currentDate = new Date();
-      const dateStarted = currentDate.toISOString().split('T')[0];
-      const newTrip = new Trip(journeyName, true, [], [], dateStarted, false);
-      this.tripService.addTrip(newTrip);
+      const dateStarted = currentDate.toISOString().split('T')[0];// remove time from date
+      const newTrip = new Trip(journeyName, true, [], [], dateStarted, false); // preliminary values
+      this.tripService.addTrip(newTrip); // push new trip to allTrips
     }
 
     this.createTrip();
@@ -70,6 +72,7 @@ export class HomePage implements OnInit {
     return undefined;
    }
 
+  // get inputed data and push to location fields 
   addLocation() {
     if (this.newLocation.trim()) {
       this.getCurrentTrip()?.locations.push(this.newLocation.trim());
@@ -83,6 +86,7 @@ export class HomePage implements OnInit {
     this.getCurrentTrip()?.locationDates.splice(index, 1);
   }
 
+  // open mapSelector modal
   async mapSelector() {
     const modal = await this.modalController.create({
       component: MapSelectorModalPage,

@@ -11,6 +11,7 @@ export class TripServiceService {
 
   constructor() { }
 
+  // generate temporary filler trips
   allTrips: Trip[] = [
     new Trip(
       'Europe', 
@@ -32,21 +33,25 @@ export class TripServiceService {
     ),
   ];
 
+  // create new trip and set tell app that user is on a trip
   createTrip(){
     this.onTrip = true;
   }
 
+  // check if onTrip exists
   tripExists(): boolean {
     return this.onTrip;
   }
 
+  // when creating new trip, add to list of allTrips
   addTrip(newTrip: Trip) {
     this.allTrips.push(newTrip);
   }
 
+  // update trip with new info
   updateTrip(updatedTrip: Trip) {
-    const index = this.allTrips.findIndex(trip => trip.journeyName === updatedTrip.journeyName && trip.dateStarted === updatedTrip.dateStarted);
-    if (index !== -1) {
+    const index = this.allTrips.findIndex(trip => trip.journeyName === updatedTrip.journeyName && trip.dateStarted === updatedTrip.dateStarted); // check if trip being passed is the same as existing trip
+    if (index !== -1) { //checks if index is valid
       this.allTrips[index] = updatedTrip;
     }
   }

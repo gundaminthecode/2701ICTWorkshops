@@ -24,6 +24,7 @@ export class EditTripModalComponent  implements OnInit {
 
   @Input() trip: Trip | null = null;
 
+  // initialise values
   journeyName: string = "";
   currentTrip: boolean = false;
   locations: string[] = [];
@@ -45,7 +46,7 @@ export class EditTripModalComponent  implements OnInit {
       this.locationDates = this.trip.locationDates;
       this.dateStarted = this.trip.dateStarted;
       this.complete = this.trip.complete;
-      this.dateEnded = this.trip.dateEnded || ''; 
+      this.dateEnded = this.trip.dateEnded || ''; //account for no dateEnded date
     }
   }
 
@@ -66,6 +67,7 @@ export class EditTripModalComponent  implements OnInit {
     this.modalController.dismiss();
   }
 
+  // create mapSelector modal
   async mapSelector() {
     const modal = await this.modalController.create({
       component: MapSelectorModalPage,
@@ -84,14 +86,13 @@ export class EditTripModalComponent  implements OnInit {
       
       if (this.complete) {
         this.trip.complete = true;
-        this.trip.currentTrip = false; // Set currentTrip to false if complete is true
+        this.trip.currentTrip = false; // set currentTrip to false if complete is true
       } else {
         this.trip.complete = false;
       }
       
       this.trip.dateEnded = this.dateEnded;
-  
-      // Dismiss the modal and pass the updated trip data back to the calling component
+
       this.modalController.dismiss(this.trip);
     }
   }

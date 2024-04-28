@@ -1,3 +1,4 @@
+// set template for trips
 export class Trip {
     constructor(
       public journeyName: string, 

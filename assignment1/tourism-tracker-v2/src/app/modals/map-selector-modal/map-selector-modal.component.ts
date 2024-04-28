@@ -23,8 +23,9 @@ export class MapSelectorModalPage {
     this.modalController.dismiss();
   }
 
+  //Both close and submit do the same thing, there is no logic for submitting more location data at this time
+
   submitModal() {
-    // Handle submit logic here
     this.modalController.dismiss();
   }
 }
