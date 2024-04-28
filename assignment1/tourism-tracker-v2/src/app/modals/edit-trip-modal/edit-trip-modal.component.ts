@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Trip } from 'src/app/models/trip.model';
 import { CommonModule } from '@angular/common';
+import { MapSelectorModalPage } from '../map-selector-modal/map-selector-modal.component';
 
 
 @Component({
@@ -16,7 +17,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonInput, IonCard, IonCheckbox, IonCardContent, IonLabel,
     FormsModule, CommonModule
-  ]
+  ],
+  providers: [ModalController],
 })
 export class EditTripModalComponent  implements OnInit {
 
@@ -64,6 +66,14 @@ export class EditTripModalComponent  implements OnInit {
     this.modalController.dismiss();
   }
 
+  async mapSelector() {
+    const modal = await this.modalController.create({
+      component: MapSelectorModalPage,
+      cssClass: 'map-selector-modal',
+    });
+    return await modal.present();
+  }
+
   updateJourney() {
     if (this.trip) {
       this.trip.journeyName = this.journeyName;
@@ -85,5 +95,7 @@ export class EditTripModalComponent  implements OnInit {
       this.modalController.dismiss(this.trip);
     }
   }
+
+  
   
 }
