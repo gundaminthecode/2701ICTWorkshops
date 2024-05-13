@@ -21,12 +21,21 @@ export class AppComponent {
   async defaultSettings(){
     try {
       await this.storage.create();
-      await this.storage.set("name", this.name);
-      await this.storage.set("showNotifications", this.showNotifications);
-      await this.storage.set("reminder", this.reminder);
+      // Check if settings already exist
+      const name = await this.storage.get('name');
+      const showNotifications = await this.storage.get('showNotifications');
+      const reminder = await this.storage.get('reminder');
+  
+      // If settings don't exist, set default values
+      if (!name && !showNotifications && !reminder) {
+        await this.storage.set("name", this.name);
+        await this.storage.set("showNotifications", this.showNotifications);
+        await this.storage.set("reminder", this.reminder);
+      }
     } catch (error) {
       console.error("Error setting default settings:", error);
     }
   }
+  
 
 }
