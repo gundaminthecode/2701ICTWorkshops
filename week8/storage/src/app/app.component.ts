@@ -11,6 +11,8 @@ import { Storage } from '@ionic/storage-angular';
 export class AppComponent {
 
   name: string = "Nick";
+  showNotifications: boolean = true;
+  reminder: string = "2001-11-22T19:45";
 
   constructor(private storage: Storage) {
     this.defaultSettings()
@@ -20,6 +22,8 @@ export class AppComponent {
     try {
       await this.storage.create();
       await this.storage.set("name", this.name);
+      await this.storage.set("showNotifications", this.showNotifications);
+      await this.storage.set("reminder", this.reminder);
     } catch (error) {
       console.error("Error setting default settings:", error);
     }
