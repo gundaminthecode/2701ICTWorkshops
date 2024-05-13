@@ -1,7 +1,0 @@
-{
-  "name": "contactsV3",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
