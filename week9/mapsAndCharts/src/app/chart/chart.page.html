@@ -12,6 +12,21 @@
   </ion-header>
 
   <ion-content class="ion-padding">
-    <canvas #healthChart height=300></canvas>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12"> <!-- This will make the chart span the full width of the screen -->
+          <div class="chart-container">
+            <canvas #healthChart></canvas>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-item>
+      <ion-input label="Add Number" type="tel" [(ngModel)]="newNumber"></ion-input>
+      <ion-input label="Add Label" type="text" [(ngModel)]="newLabel"></ion-input>
+    </ion-item>
+  
+    <ion-button expand="block" (click)="addData()">Add</ion-button>
   </ion-content>
 </ion-content>
