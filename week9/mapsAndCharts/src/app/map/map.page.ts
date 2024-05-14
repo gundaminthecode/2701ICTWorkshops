@@ -17,15 +17,13 @@ export class MapPage implements OnInit {
 
   constructor(private readonly elementRef: ElementRef) { 
     this.mapElement = elementRef;
-
-    
   }
 
   @ViewChild('map', { static: false }) mapElement: ElementRef;
   map: any;
 
   ngOnInit() {
-    console.log('ngOnInit MapPage');
+    //console.log('ngOnInit MapPage');
 
     let latLng = new google.maps.LatLng(-27.5522951875278, 153.05107960000726);
     let mapOptions = {
