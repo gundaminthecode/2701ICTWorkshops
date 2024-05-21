@@ -8,6 +8,8 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../services/login.service';
+import { Storage } from '@ionic/storage-angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -21,28 +23,50 @@ import { LoginService } from '../services/login.service';
 export class LoginPage implements OnInit {
 
   username: string = '';
+  password: string = '';
   Count: number = 0;
 
   constructor(
     private router: Router, 
     private loginService: LoginService,
+    private storage: Storage,
+    private alertController: AlertController,
   ) {
     addIcons({ logInOutline });
   }
 
-  //login attempts
-  incrementCounter(){
+  ngOnInit(): void {
+    this.storage.create();
+  }
+
+  incrementCounter() {
     this.Count += 1;
   }
 
-  login() {
+  async login() {
     this.incrementCounter();
-    this.loginService.login(); // tell app that user is logged in
-    this.router.navigate(['']); // redirect to home page
+    const storedUsername = await this.storage.get('username');
+    const storedPassword = await this.storage.get('password');
+
+    if (this.username === storedUsername && this.password === storedPassword) {
+      this.loginService.login(); // Tell app that user is logged in
+      this.router.navigate(['']); // Redirect to home page
+      this.username = '';
+      this.password = '';
+    } else {
+      this.showErrorAlert();
+    }
   }
 
-  ngOnInit(): void {
-    
+  async showErrorAlert() {
+    const alert = await this.alertController.create({
+      header: 'Login Failed',
+      message: 'Invalid username or password.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
+
 }
 
