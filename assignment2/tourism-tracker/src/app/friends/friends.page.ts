@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import {
-  IonHeader, IonContent, IonTitle, IonToolbar,
-} from '@ionic/angular/standalone'
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { 
+  IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonList, IonItem, IonAvatar, IonLabel, 
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-friends',
@@ -9,11 +11,14 @@ import {
   styleUrls: ['./friends.page.scss'],
   standalone: true,
   imports: [
-    IonHeader, IonContent, IonTitle, IonToolbar,
-  ]
+    IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonList, IonItem, IonAvatar, IonLabel, 
+    CommonModule, FormsModule]
 })
-export class FriendsPage {
+export class FriendsPage implements OnInit {
 
   constructor() { }
+
+  ngOnInit() {
+  }
 
 }

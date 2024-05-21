@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,8 +11,41 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- <app-explore-container name="Home page"></app-explore-container> -->
-  <ion-content>
-    <p>Welcome {{username}}</p>
+  <ion-content class="ion-padding">
+    <ion-card *ngIf="getCurrentTrip() && getCurrentTrip()?.journeyName">
+      <ion-card-header>
+        Current Trip Details
+      </ion-card-header>
+      <ion-card-title class="ion-padding">
+        Journey Name: {{ getCurrentTrip()?.journeyName }}
+      </ion-card-title>
+      <ion-card-subtitle class="ion-padding">
+        Date started: {{ getCurrentTrip()?.dateStarted}}
+      </ion-card-subtitle>
+      <ion-card-content>
+        <ion-label>Add Location:</ion-label>
+          <ion-item>
+            <ion-input [(ngModel)]="newLocation" name="newLocation" type="text" placeholder="Location Name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="newLocationDate" name="newLocationDate" type="date"></ion-input>
+          </ion-item>
+
+          <ion-button (click)="mapSelector()">Select Location</ion-button>
+        <ion-button (click)="addLocation()">Add</ion-button>
+      </ion-card-content>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let location of getCurrentTrip()?.locations; let i = index">
+            {{ location }} ({{ getCurrentTripLocationDates(i) || ''}})
+            <ion-button (click)="removeLocation(i)" slot="end">Delete</ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button *ngIf="!getCurrentTrip()" (click)="addNewTrip()">
+      Create Trip
+    </ion-button>
   </ion-content>
 </ion-content>

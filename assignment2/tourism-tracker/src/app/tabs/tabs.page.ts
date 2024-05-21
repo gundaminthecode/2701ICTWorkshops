@@ -1,25 +1,19 @@
-import { Component } from '@angular/core';
-
+import { Component, EnvironmentInjector, inject } from '@angular/core';
+import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { airplane, person, people, home } from 'ionicons/icons';
-
-import { 
-  IonHeader, IonContent, IonTitle, IonToolbar, IonLabel, IonIcon, IonTabButton, IonTabs, IonTabBar
-} from '@ionic/angular/standalone';
+import { airplane, home, people, person } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],
   standalone: true,
-  imports: [
-    IonHeader, IonContent, IonTitle, IonToolbar, IonLabel, IonIcon, IonTabButton, IonTabs, IonTabBar
-  ]
+  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
 })
 export class TabsPage {
+  public environmentInjector = inject(EnvironmentInjector);
 
   constructor() {
-    addIcons({ airplane, person, people, home });
+    addIcons({ airplane, home, people, person });
   }
-
 }
