@@ -1,0 +1,9 @@
+:host {
+    display: block;
+    height: 100%;
+  }
+  
+  #map {
+    height: calc(100% - 56px); /* Adjust the height to leave room for footer */
+  }
+  
