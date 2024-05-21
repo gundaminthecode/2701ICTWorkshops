@@ -1,0 +1,7 @@
+{
+  "name": "tourism-tracker-v2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
