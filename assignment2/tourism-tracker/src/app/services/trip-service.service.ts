@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Trip } from '../models/trip.model';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,16 @@ import { Trip } from '../models/trip.model';
 export class TripServiceService {
 
   onTrip = false;
+  STORAGE_KEY = 'allTrips'
 
-  constructor() { }
+  constructor(private storage: Storage) { }
+
+  async initialiseStorage() {
+    const trips = await this.storage.get(this.STORAGE_KEY);
+    if (trips) {
+      this.allTrips = trips;
+    }
+  }
 
   // generate temporary filler trips
   allTrips: Trip[] = [
@@ -40,6 +49,20 @@ export class TripServiceService {
     this.onTrip = true;
   }
 
+  addNewTrip(){
+    // should probs update with a modal or a nicer way instead of a prompt
+    const journeyName = prompt('Enter journey name:');
+
+    if (journeyName) {
+      const currentDate = new Date();
+      const dateStarted = currentDate.toISOString().split('T')[0];// remove time from date
+      const newTrip = new Trip(journeyName, true, [], [], [], dateStarted, false); // preliminary values
+      this.addTrip(newTrip); // push new trip to allTrips
+    }
+
+    this.createTrip();
+  }
+
   // check if onTrip exists
   tripExists(): boolean {
     return this.onTrip;
@@ -50,12 +73,41 @@ export class TripServiceService {
     this.allTrips.push(newTrip);
   }
 
+  getCurrentTrip(){
+    return this.allTrips.find(trip => trip.complete === false);
+  }
+
+  addLocation(location: string, date: string, markerLatLng: string) {
+    const currentTrip = this.getCurrentTrip();
+    if (currentTrip) {
+      currentTrip.locations.push(location);
+      currentTrip.locationDates.push(date);
+      currentTrip.locationLatLngs.push(markerLatLng);
+      this.saveTrips();
+    }
+  }
+
+  removeLocation(index: number) {
+    const currentTrip = this.getCurrentTrip();
+    if (currentTrip) {
+      currentTrip.locations.splice(index, 1);
+      currentTrip.locationDates.splice(index, 1);
+      currentTrip.locationLatLngs.splice(index, 1);
+      this.saveTrips();
+    }
+  }
+
   // update trip with new info
   updateTrip(updatedTrip: Trip) {
     const index = this.allTrips.findIndex(trip => trip.journeyName === updatedTrip.journeyName && trip.dateStarted === updatedTrip.dateStarted); // check if trip being passed is the same as existing trip
     if (index !== -1) { //checks if index is valid
       this.allTrips[index] = updatedTrip;
+      this.saveTrips(); // Save the updated trips to storage
     }
+  }
+
+  private async saveTrips() {
+    await this.storage.set(this.STORAGE_KEY, this.allTrips);
   }
   
 }

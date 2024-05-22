@@ -12,15 +12,15 @@
   </ion-header>
 
   <ion-content class="ion-padding">
-    <ion-card *ngIf="getCurrentTrip() && getCurrentTrip()?.journeyName">
+    <ion-card *ngIf="this.tripService.getCurrentTrip() && this.tripService.getCurrentTrip()?.journeyName">
       <ion-card-header>
         Current Trip Details
       </ion-card-header>
       <ion-card-title class="ion-padding">
-        Journey Name: {{ getCurrentTrip()?.journeyName }}
+        Journey Name: {{ this.tripService.getCurrentTrip()?.journeyName }}
       </ion-card-title>
       <ion-card-subtitle class="ion-padding">
-        Date started: {{ getCurrentTrip()?.dateStarted}}
+        Date started: {{ this.tripService.getCurrentTrip()?.dateStarted}}
       </ion-card-subtitle>
       <ion-card-content>
         <ion-label>Add Location:</ion-label>
@@ -36,7 +36,7 @@
       </ion-card-content>
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let location of getCurrentTrip()?.locations; let i = index">
+          <ion-item *ngFor="let location of this.tripService.getCurrentTrip()?.locations; let i = index">
             {{ location }} ({{ getCurrentTripLocationDates(i) || ''}}) <br> LatLng: {{getCurrentTripLocationLatLngs(i) || ''}}
             <ion-button (click)="removeLocation(i)" slot="end">Delete</ion-button>
           </ion-item>
@@ -44,7 +44,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-button *ngIf="!getCurrentTrip()" (click)="addNewTrip()">
+    <ion-button *ngIf="!this.tripService.getCurrentTrip()" (click)="addNewTrip()">
       Create Trip
     </ion-button>
   </ion-content>

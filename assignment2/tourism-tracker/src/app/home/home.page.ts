@@ -37,37 +37,31 @@ export class HomePage implements OnInit {
    }
 
   ngOnInit() {
+    this.tripService.initialiseStorage();
     this.newLocation = '';
     this.newLocationDate = '';
   }
 
+  ionViewWillEnter() {
+    // Call any necessary methods to refresh data when the view is about to be entered
+    this.refreshData();
+  }
+
+  async refreshData() {
+    await this.tripService.initialiseStorage(); // Refresh the data from storage
+  }
+
   createTrip(){
-    //console.log(this.tripService.onTrip);
     // lets tripService know that the user has created a new trip
     this.tripService.createTrip();
-    //console.log(this.tripService.onTrip);
   }
 
   addNewTrip() {
-    // should probs update with a modal or a nicer way instead of a prompt
-    const journeyName = prompt('Enter journey name:');
-
-    if (journeyName) {
-      const currentDate = new Date();
-      const dateStarted = currentDate.toISOString().split('T')[0];// remove time from date
-      const newTrip = new Trip(journeyName, true, [], [], [], dateStarted, false); // preliminary values
-      this.tripService.addTrip(newTrip); // push new trip to allTrips
-    }
-
-    this.createTrip();
-  }
-
-  getCurrentTrip() {
-    return this.tripService.allTrips.find(trip => trip.currentTrip === true);
+    this.tripService.addNewTrip();
   }
 
   getCurrentTripLocationDates(index: number): string | undefined {
-    const currentTrip = this.getCurrentTrip();
+    const currentTrip = this.tripService.getCurrentTrip();
     if (currentTrip && currentTrip.locationDates) {
        return currentTrip.locationDates[index];
     }
@@ -75,7 +69,7 @@ export class HomePage implements OnInit {
    }
 
    getCurrentTripLocationLatLngs(index: number): string | undefined {
-    const currentTrip = this.getCurrentTrip();
+    const currentTrip = this.tripService.getCurrentTrip();
     if (currentTrip && currentTrip.locationLatLngs) {
        return currentTrip.locationLatLngs[index];
     }
@@ -85,17 +79,15 @@ export class HomePage implements OnInit {
   // get inputed data and push to location fields 
   addLocation() {
     if (this.newLocation.trim()) {
-      this.getCurrentTrip()?.locations.push(this.newLocation.trim());
-      this.getCurrentTrip()?.locationDates.push(this.newLocationDate);
-      this.getCurrentTrip()?.locationLatLngs.push(this.markerService.markerLatLng);
+      const markerLatLng = this.markerService.markerLatLng(); // Get marker's LatLng from TripServiceService
+      this.tripService.addLocation(this.newLocation.trim(), this.newLocationDate, markerLatLng);
       this.newLocation = '';
       this.newLocationDate = '';
     }
   }
 
   removeLocation(index: number) {
-    this.getCurrentTrip()?.locations.splice(index, 1);
-    this.getCurrentTrip()?.locationDates.splice(index, 1);
+    this.tripService.removeLocation(index);
   }
 
   // open mapSelector modal

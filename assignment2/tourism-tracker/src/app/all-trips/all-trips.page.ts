@@ -23,23 +23,24 @@ import { EditTripModalComponent } from '../modals/edit-trip-modal/edit-trip-moda
 })
 export class AllTripsPage implements OnInit {
 
+  allTrips: Trip[] = [];
+
   constructor(private tripService: TripServiceService, private modalController: ModalController) { }
 
-  allTrips = this.tripService.allTrips;
-
   ngOnInit() {
-    //console.log(this.allTrips);
+    this.loadTrips();
   }
 
-  viewTrip(){
-
+  async loadTrips() {
+    await this.tripService.initialiseStorage();
+    this.allTrips = this.tripService.allTrips;
   }
 
   async editTrip(trip: Trip) {
     const modal = await this.modalController.create({
       component: EditTripModalComponent,
       componentProps: {
-        trip: trip // pass any nessecary data to edit trip
+        trip: trip // pass any necessary data to edit trip
       }
     });
     await modal.present();
@@ -47,11 +48,15 @@ export class AllTripsPage implements OnInit {
     if (data) {
       // update trip with edited info with close of modal
       this.tripService.updateTrip(data);
+      this.loadTrips(); // Reload trips after updating
     }
   }
 
-  deleteTrip(){
-
+  deleteTrip() {
+    // implement delete logic
   }
 
+  viewTrip() {
+    // implement view logic
+  }
 }
