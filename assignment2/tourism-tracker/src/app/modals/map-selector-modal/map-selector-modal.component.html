@@ -1,27 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Map Selector</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Select Location
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">Close</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<div class="modal-container">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Location Selector</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
-  <div #map id="map" style="height: 80%;"></div>
-</ion-content>
+  <ion-content class="modal-content">
+    <div #map id="map"></div>
+  </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button (click)="submitModal()">Submit</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+  <ion-footer class="modal-footer">
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="submitModal()">Submit</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+</div>

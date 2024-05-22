@@ -1,7 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { 
-  IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonInput, IonCard, IonCardContent, IonCheckbox, IonLabel,
-  IonFooter 
+  IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonFooter 
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -15,19 +14,20 @@ declare let google: any;
   styleUrls: ['./map-selector-modal.component.scss'],
   standalone: true,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonInput, IonCard, IonCheckbox, IonCardContent, IonLabel,
-    IonFooter, FormsModule, CommonModule,
+    IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonFooter, FormsModule, CommonModule,
   ]
 })
-export class MapSelectorModalPage implements OnInit {
+export class MapSelectorModalPage implements AfterViewInit {
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
+  previousMarker: any = null;
+  markerLatLng: any = [];
 
   constructor(
     private modalController: ModalController,
-    private readonly elementRef: ElementRef,
+    private elementRef: ElementRef
   ) {
-    this.mapElement = elementRef;
+    this.mapElement = elementRef
   }
 
   closeModal() {
@@ -38,7 +38,36 @@ export class MapSelectorModalPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.initMap();
+
+    google.maps.event.addListener(this.map, 'click', (event: { latLng: any }) => {
+      this.placeMarker(event.latLng);
+    });
+  }
+
+  placeMarker(location: any) {
+    if (this.previousMarker) {
+      this.previousMarker.setMap(null); // Remove the previous marker from the map
+    }
+  
+    const marker = new google.maps.Marker({
+      position: location,
+      map: this.map,
+    });
+  
+    this.previousMarker = marker; // Update the reference to the new marker
+  
+    const infowindow = new google.maps.InfoWindow({
+      content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+    });
+    this.markerLatLng = [location.lat(), location.lng()];
+    console.log(this.markerLatLng);
+    infowindow.open(this.map, marker);
+  }
+  
+
+  initMap() {
     const latLng = new google.maps.LatLng(-27.5522951875278, 153.05107960000726);
     const mapOptions = {
       center: latLng,

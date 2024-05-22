@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { Storage } from '@ionic/storage-angular';
 import { Credentials } from './models/credentials.model';
@@ -7,9 +7,9 @@ import { Credentials } from './models/credentials.model';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
-  imports: [IonApp, IonRouterOutlet],
+  imports: [IonApp, IonRouterOutlet,],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit{
 
   credentials: Credentials = new Credentials('username', 'password')
 
@@ -30,5 +30,21 @@ export class AppComponent {
     } catch (error) {
       console.error('Error Setting Default Credentials:', error);
     }
+  }
+
+  ngOnInit(): void {
+    
+  }
+
+  ngAfterViewInit(): void {
+    this.loadGoogleMapsScript();
+  }
+
+  async loadGoogleMapsScript() {
+    const script = document.createElement('script');
+    script.src = 'http://maps.google.com/maps/api/js?key=AIzaSyCUUWYoegNWPipW0WOQ-er9Consvllk5pA&loading=async';
+    script.defer = true;
+    script.async = true;
+    document.body.appendChild(script);
   }
 }
