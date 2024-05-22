@@ -37,7 +37,7 @@
       <ion-card-content>
         <ion-list>
           <ion-item *ngFor="let location of getCurrentTrip()?.locations; let i = index">
-            {{ location }} ({{ getCurrentTripLocationDates(i) || ''}})
+            {{ location }} ({{ getCurrentTripLocationDates(i) || ''}}) <br> LatLng: {{getCurrentTripLocationLatLngs(i) || ''}}
             <ion-button (click)="removeLocation(i)" slot="end">Delete</ion-button>
           </ion-item>
         </ion-list>

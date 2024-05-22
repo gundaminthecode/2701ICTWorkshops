@@ -1,10 +1,11 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { 
   IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonFooter 
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MarkerServiceService } from 'src/app/services/marker-service.service';
 
 declare let google: any;
 
@@ -21,11 +22,11 @@ export class MapSelectorModalPage implements AfterViewInit {
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
   previousMarker: any = null;
-  markerLatLng: any = [];
 
   constructor(
     private modalController: ModalController,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private markerService: MarkerServiceService,
   ) {
     this.mapElement = elementRef
   }
@@ -61,8 +62,8 @@ export class MapSelectorModalPage implements AfterViewInit {
     const infowindow = new google.maps.InfoWindow({
       content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
     });
-    this.markerLatLng = [location.lat(), location.lng()];
-    console.log(this.markerLatLng);
+    this.markerService.markerLatLng = [location.lat(), location.lng()];
+    //console.log(this.markerService.markerLatLng);
     infowindow.open(this.map, marker);
   }
   

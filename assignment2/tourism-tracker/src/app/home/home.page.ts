@@ -9,6 +9,7 @@ import { TripServiceService } from '../services/trip-service.service';
 import { Trip } from '../models/trip.model';
 import { ModalController } from '@ionic/angular';
 import { MapSelectorModalPage } from '../modals/map-selector-modal/map-selector-modal.component';
+import { MarkerServiceService } from '../services/marker-service.service';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ export class HomePage implements OnInit {
   constructor(
     public tripService: TripServiceService,
     private modalController: ModalController,
+    private markerService: MarkerServiceService,
   ) {
     
    }
@@ -53,7 +55,7 @@ export class HomePage implements OnInit {
     if (journeyName) {
       const currentDate = new Date();
       const dateStarted = currentDate.toISOString().split('T')[0];// remove time from date
-      const newTrip = new Trip(journeyName, true, [], [], dateStarted, false); // preliminary values
+      const newTrip = new Trip(journeyName, true, [], [], [], dateStarted, false); // preliminary values
       this.tripService.addTrip(newTrip); // push new trip to allTrips
     }
 
@@ -72,12 +74,22 @@ export class HomePage implements OnInit {
     return undefined;
    }
 
+   getCurrentTripLocationLatLngs(index: number): string | undefined {
+    const currentTrip = this.getCurrentTrip();
+    if (currentTrip && currentTrip.locationLatLngs) {
+       return currentTrip.locationLatLngs[index];
+    }
+    return undefined;
+   }
+
   // get inputed data and push to location fields 
   addLocation() {
     if (this.newLocation.trim()) {
       this.getCurrentTrip()?.locations.push(this.newLocation.trim());
       this.getCurrentTrip()?.locationDates.push(this.newLocationDate);
+      this.getCurrentTrip()?.locationLatLngs.push(this.markerService.markerLatLng);
       this.newLocation = '';
+      this.newLocationDate = '';
     }
   }
 

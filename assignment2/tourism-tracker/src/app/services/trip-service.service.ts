@@ -16,8 +16,9 @@ export class TripServiceService {
     new Trip(
       'Europe', 
       false,
-      ['Location 1', 'Location 2', 'Location 3'], 
+      ['Copenhagen 1', 'Oslo 2', 'Stockholm 3'], 
       ['2024-01-01', '2024-01-02', '2024-01-03'], 
+      ['55.676098, 12.568337', '59.911491, 10.757933', '59.3293, 18.0686'],
       '2024-01-01', 
       true, 
       '2024-01-03'
@@ -25,8 +26,9 @@ export class TripServiceService {
     new Trip(
       'America', 
       false,
-      ['Location 1', 'Location 2', 'Location 3'], 
-      ['2024-02-01', '2024-02-02', '2024-02-03'], 
+      ['New York 1', 'Los Angeles 2', 'Washington DC 3'], 
+      ['2024-02-01', '2024-02-02', '2024-02-03'],
+      ['40.7128, 74.0060', '34.0549, 118.2426', '38.9072, 77.0369'], 
       '2024-02-01', 
       true, 
       '2024-02-03'
