@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Trip } from '../models/trip.model';
 import { Storage } from '@ionic/storage-angular';
+import { AlertController } from '@ionic/angular/standalone';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class TripServiceService {
   onTrip = false;
   STORAGE_KEY = 'allTrips'
 
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage, private alertController: AlertController,) { }
 
   async initialiseStorage() {
     const trips = await this.storage.get(this.STORAGE_KEY);
@@ -49,18 +50,35 @@ export class TripServiceService {
     this.onTrip = true;
   }
 
-  addNewTrip(){
-    // should probs update with a modal or a nicer way instead of a prompt
-    const journeyName = prompt('Enter journey name:');
-
-    if (journeyName) {
-      const currentDate = new Date();
-      const dateStarted = currentDate.toISOString().split('T')[0];// remove time from date
-      const newTrip = new Trip(journeyName, true, [], [], [], dateStarted, false); // preliminary values
-      this.addTrip(newTrip); // push new trip to allTrips
-    }
-
-    this.createTrip();
+  async addNewTrip(){
+    const alert = await this.alertController.create({
+      header: 'New Trip',
+      inputs: [
+        {
+          name: 'journeyName',
+          type: 'text',
+          placeholder: 'Enter journey name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            if (data.journeyName) {
+              const currentDate = new Date();
+              const dateStarted = currentDate.toISOString().split('T')[0];// remove time from date
+              const newTrip = new Trip(data.journeyName, true, [], [], [], dateStarted, false); // preliminary values
+              this.addTrip(newTrip); // push new trip to allTrips
+              this.createTrip();
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   // check if onTrip exists
