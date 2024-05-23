@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
-  IonContent, IonHeader, IonTitle, IonToolbar, IonItemOptions, IonItemOption, IonItem, IonList, IonItemSliding 
+  IonContent, IonHeader, IonTitle, IonToolbar, IonItemOptions, IonItemOption, IonItem, IonList, IonItemSliding,
+  IonGrid, IonRow, IonCol, 
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../services/trip-service.service';
 import { Trip } from '../models/trip.model';
+import { Chart } from 'chart.js/auto';
+import { ElementRef } from '@angular/core';
 
 import { EditTripModalComponent } from '../modals/edit-trip-modal/edit-trip-modal.component';
 
@@ -17,6 +20,7 @@ import { EditTripModalComponent } from '../modals/edit-trip-modal/edit-trip-moda
   standalone: true,
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonToolbar, IonItemOptions, IonItemOption, IonItem, IonList, IonItemSliding,
+    IonGrid, IonRow, IonCol,
     CommonModule, FormsModule
   ],
   providers: [ModalController],
@@ -25,10 +29,39 @@ export class AllTripsPage implements OnInit {
 
   allTrips: Trip[] = [];
 
-  constructor(public tripService: TripServiceService, private modalController: ModalController) { }
+  constructor(public tripService: TripServiceService, private modalController: ModalController, private readonly elementRef: ElementRef) {
+    this.canvas = elementRef;
+  }
+
+  @ViewChild('monthChart', {static:true}) canvas: ElementRef;
+  chart: any;
+  labels: string[] = [];
+  data: number[] = [];
+
 
   ngOnInit() {
     this.loadTrips();
+    this.loadMonthlyVisits();
+    this.initialiseChart();
+  }
+
+  initialiseChart(){
+    this.chart = new Chart(this.canvas.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: this.labels,
+        datasets: [{
+          label: 'Location Visits Per Month',
+          data: this.data,
+        }]
+      },
+    });
+  }
+
+  loadMonthlyVisits() {
+    const { labels, data } = this.tripService.getMonthlyVisits();
+    this.labels = labels;
+    this.data = data;
   }
 
   async loadTrips() {

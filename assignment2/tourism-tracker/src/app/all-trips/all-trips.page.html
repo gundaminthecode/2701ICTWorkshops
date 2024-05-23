@@ -28,6 +28,16 @@
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12"> <!-- This will make the chart span the full width of the screen -->
+          <div class="chart-container">
+            <canvas #monthChart></canvas>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-content>
 
 </ion-content>

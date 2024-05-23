@@ -114,6 +114,27 @@ export class TripServiceService {
     }
   }
 
+  allDates(): string[] {
+    return this.allTrips
+      .map(trip => trip.locationDates)
+      .reduce((acc, dates) => acc.concat(dates), []);
+  }
+
+  getMonthlyVisits() {
+    const allDates = this.allDates();
+    const monthCounts: { [key: string]: number } = {};
+
+    allDates.forEach(date => {
+      const month = new Date(date).toLocaleString('default', { month: 'long' });
+      monthCounts[month] = (monthCounts[month] || 0) + 1;
+    });
+
+    const labels = Object.keys(monthCounts);
+    const data = Object.values(monthCounts);
+
+    return { labels, data };
+  }
+
   private async saveTrips() {
     await this.storage.set(this.STORAGE_KEY, this.allTrips);
   }
