@@ -106,6 +106,14 @@ export class TripServiceService {
     }
   }
 
+  removeTrip(trip: Trip) {
+    const index = this.allTrips.findIndex(t => t.journeyName === trip.journeyName && t.dateStarted === trip.dateStarted);
+    if (index !== -1) {
+      this.allTrips.splice(index, 1);
+      this.saveTrips();
+    }
+  }
+
   private async saveTrips() {
     await this.storage.set(this.STORAGE_KEY, this.allTrips);
   }

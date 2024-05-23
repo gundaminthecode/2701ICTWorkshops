@@ -25,7 +25,7 @@ export class AllTripsPage implements OnInit {
 
   allTrips: Trip[] = [];
 
-  constructor(private tripService: TripServiceService, private modalController: ModalController) { }
+  constructor(public tripService: TripServiceService, private modalController: ModalController) { }
 
   ngOnInit() {
     this.loadTrips();
@@ -50,10 +50,6 @@ export class AllTripsPage implements OnInit {
       this.tripService.updateTrip(data);
       this.loadTrips(); // Reload trips after updating
     }
-  }
-
-  deleteTrip() {
-    // implement delete logic
   }
 
   viewTrip() {

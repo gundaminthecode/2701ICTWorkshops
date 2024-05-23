@@ -32,10 +32,8 @@ export class HomePage implements OnInit {
     public tripService: TripServiceService,
     private modalController: ModalController,
     private markerService: MarkerServiceService,
-  ) {
-    
-   }
-
+  ) {}
+  
   ngOnInit() {
     this.tripService.initialiseStorage();
     this.newLocation = '';
@@ -52,7 +50,6 @@ export class HomePage implements OnInit {
   }
 
   createTrip(){
-    // lets tripService know that the user has created a new trip
     this.tripService.createTrip();
   }
 
@@ -98,5 +95,4 @@ export class HomePage implements OnInit {
     });
     return await modal.present();
   }
-
 }
