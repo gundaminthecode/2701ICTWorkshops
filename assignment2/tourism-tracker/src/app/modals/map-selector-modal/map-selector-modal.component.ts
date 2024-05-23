@@ -53,20 +53,22 @@ export class MapSelectorModalPage implements AfterViewInit {
       position: location,
       map: this.map,
     });
-  
+    
     this.previousMarker = marker; // Update the reference to the new marker
   
     const infowindow = new google.maps.InfoWindow({
       content: `Location: ${name}<br>Latitude: ${location.lat()}<br>Longitude: ${location.lng()}`
     });
     this.markerService.markerLatLng = [location.lat(), location.lng()];
+    //console.log(this.markerService.markerLatLng)
     infowindow.open(this.map, marker);
   }
 
   initMap() {
     let latLng;
+    //console.log(this.defaultLatLng);
     if (this.defaultLatLng) {
-      const [lat, lng] = this.defaultLatLng.split(',').map(coord => parseFloat(coord.trim()));
+      const [lat, lng] = this.defaultLatLng;
       latLng = new google.maps.LatLng(lat, lng);
     } else {
       latLng = new google.maps.LatLng(-27.5522951875278, 153.05107960000726);
@@ -77,9 +79,9 @@ export class MapSelectorModalPage implements AfterViewInit {
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-
+  
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
+  
     if (this.defaultLatLng) {
       this.placeMarker(latLng, this.locationName || 'Selected Location');
       this.showSubmitButton = false; // Disable the submit button when viewing a location
@@ -90,4 +92,5 @@ export class MapSelectorModalPage implements AfterViewInit {
       });
     }
   }
+  
 }

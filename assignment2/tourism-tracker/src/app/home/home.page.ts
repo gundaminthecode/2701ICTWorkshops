@@ -75,7 +75,7 @@ export class HomePage implements OnInit {
   // get inputed data and push to location fields 
   addLocation() {
     if (this.newLocation.trim()) {
-      const markerLatLng = this.markerService.markerLatLng(); // Get marker's LatLng from TripServiceService
+      const markerLatLng = this.markerService.markerLatLng; // Get marker's LatLng from TripServiceService
       this.tripService.addLocation(this.newLocation.trim(), this.newLocationDate, markerLatLng);
       this.newLocation = '';
       this.newLocationDate = '';
@@ -90,6 +90,7 @@ export class HomePage implements OnInit {
     const currentTrip = this.tripService.getCurrentTrip();
     if (currentTrip) {
       const latLng = currentTrip.locationLatLngs[index];
+      //console.log(latLng)
       const locationName = currentTrip.locations[index];
 
       const modal = await this.modalController.create({
