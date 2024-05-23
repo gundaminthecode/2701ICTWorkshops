@@ -1,39 +1,8 @@
-// import { Component, OnInit } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { IonicModule } from '@ionic/angular';
-// import { ActivatedRoute } from '@angular/router';
-
-// import { Observable } from 'rxjs';
-// import { map } from 'rxjs';
-
-// @Component({
-//   selector: 'app-account',
-//   templateUrl: './account.page.html',
-//   styleUrls: ['./account.page.scss'],
-//   standalone: true,
-//   imports: [IonicModule, CommonModule, FormsModule]
-// })
-// export class AccountPage implements OnInit {
-
-//   //username: string = '';
-//   username: Observable<string> | undefined;
-
-//   constructor(private route: ActivatedRoute) { }
-
-//   ngOnInit() {
-//     //this.username = this.route.snapshot.paramMap.get('username') ?? "";
-//     this.username = this.route.paramMap.pipe(
-//       map(paramMap => paramMap.get('username') ?? "")
-//     )
-//   }
-
-// }
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonToggle, IonItem, IonList, IonDatetimeButton, IonModal, IonDatetime, IonButton, IonLabel, IonAvatar, IonBackButton, IonButtons,} from '@ionic/angular/standalone';
+
 import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -43,7 +12,7 @@ import { Observable } from 'rxjs';
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonToggle, IonItem, IonList, IonDatetimeButton, IonModal, IonDatetime, IonButton, CommonModule, FormsModule, IonLabel, IonAvatar, IonBackButton, IonButtons]
 })
 export class AccountPage implements OnInit, OnDestroy {
 
