@@ -37,8 +37,10 @@
       <ion-card-content>
         <ion-list>
           <ion-item *ngFor="let location of this.tripService.getCurrentTrip()?.locations; let i = index">
-            {{ location }} ({{ getCurrentTripLocationDates(i) || ''}}) <br> LatLng: {{getCurrentTripLocationLatLngs(i) || ''}}
-            <ion-button (click)="removeLocation(i)" slot="end">Delete</ion-button>
+            {{ location }} ({{ getCurrentTripLocationDates(i) || ''}}) 
+            <!-- <br> LatLng: {{getCurrentTripLocationLatLngs(i) || ''}} -->
+            <ion-button (click)="viewLocation(i)" slot="end">View on Map</ion-button>
+            <ion-button (click)="removeLocation(i)" color="danger" slot="end">Delete</ion-button>
           </ion-item>
         </ion-list>
       </ion-card-content>

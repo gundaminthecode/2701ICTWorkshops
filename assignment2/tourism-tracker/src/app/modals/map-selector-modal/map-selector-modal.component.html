@@ -12,7 +12,7 @@
     <div #map id="map"></div>
   </ion-content>
 
-  <ion-footer class="modal-footer">
+  <ion-footer class="modal-footer" *ngIf="showSubmitButton">
     <ion-toolbar>
       <ion-buttons slot="end">
         <ion-button (click)="submitModal()">Submit</ion-button>

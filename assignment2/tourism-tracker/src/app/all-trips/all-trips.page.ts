@@ -51,8 +51,4 @@ export class AllTripsPage implements OnInit {
       this.loadTrips(); // Reload trips after updating
     }
   }
-
-  viewTrip() {
-    // implement view logic
-  }
 }

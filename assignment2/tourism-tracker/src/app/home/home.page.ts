@@ -6,7 +6,6 @@ import {
   IonLabel, IonInput,
 } from '@ionic/angular/standalone';
 import { TripServiceService } from '../services/trip-service.service';
-import { Trip } from '../models/trip.model';
 import { ModalController } from '@ionic/angular';
 import { MapSelectorModalPage } from '../modals/map-selector-modal/map-selector-modal.component';
 import { MarkerServiceService } from '../services/marker-service.service';
@@ -88,11 +87,17 @@ export class HomePage implements OnInit {
   }
 
   // open mapSelector modal
-  async mapSelector() {
+  async mapSelector(defaultLatLng: string | null = null) {
     const modal = await this.modalController.create({
       component: MapSelectorModalPage,
       cssClass: 'map-selector-modal',
+      componentProps: { defaultLatLng }
     });
     return await modal.present();
+  }
+
+  viewLocation(index: number) {
+    const latLng = this.getCurrentTripLocationLatLngs(index);
+    this.mapSelector(latLng);
   }
 }

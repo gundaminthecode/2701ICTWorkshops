@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { 
   IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonFooter 
 } from '@ionic/angular/standalone';
@@ -20,15 +20,17 @@ declare let google: any;
 })
 export class MapSelectorModalPage implements AfterViewInit {
   @ViewChild('map', {static: false}) mapElement: ElementRef;
+  @Input() defaultLatLng: string | null = null;
   map: any;
   previousMarker: any = null;
+  showSubmitButton: boolean = false;
 
   constructor(
     private modalController: ModalController,
     private elementRef: ElementRef,
     private markerService: MarkerServiceService,
   ) {
-    this.mapElement = elementRef
+    this.mapElement = elementRef;
   }
 
   closeModal() {
@@ -63,13 +65,20 @@ export class MapSelectorModalPage implements AfterViewInit {
       content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
     });
     this.markerService.markerLatLng = [location.lat(), location.lng()];
-    //console.log(this.markerService.markerLatLng);
     infowindow.open(this.map, marker);
   }
-  
 
   initMap() {
-    const latLng = new google.maps.LatLng(-27.5522951875278, 153.05107960000726);
+    let latLng;
+    if (this.defaultLatLng) {
+      this.showSubmitButton = false;
+      const [lat, lng] = this.defaultLatLng.split(',').map(coord => parseFloat(coord.trim()));
+      latLng = new google.maps.LatLng(lat, lng);
+    } else {
+      this.showSubmitButton = true;
+      latLng = new google.maps.LatLng(-27.5522951875278, 153.05107960000726);
+    }
+    
     const mapOptions = {
       center: latLng,
       zoom: 15,
@@ -78,18 +87,8 @@ export class MapSelectorModalPage implements AfterViewInit {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-    const marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
-    });
-
-    const infoWindow = new google.maps.InfoWindow({
-      content: '<h4>Nathan Campus</h4>'
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
+    if (this.defaultLatLng) {
+      this.placeMarker(latLng);
+    }
   }
 }
