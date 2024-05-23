@@ -1,7 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
-import { 
-  IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonFooter 
-} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonFooter } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,6 +19,7 @@ declare let google: any;
 export class MapSelectorModalPage implements AfterViewInit {
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   @Input() defaultLatLng: string | null = null;
+  @Input() locationName: string | null = null;
   map: any;
   previousMarker: any = null;
   showSubmitButton: boolean = false;
@@ -43,13 +42,9 @@ export class MapSelectorModalPage implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initMap();
-
-    google.maps.event.addListener(this.map, 'click', (event: { latLng: any }) => {
-      this.placeMarker(event.latLng);
-    });
   }
 
-  placeMarker(location: any) {
+  placeMarker(location: any, name: string) {
     if (this.previousMarker) {
       this.previousMarker.setMap(null); // Remove the previous marker from the map
     }
@@ -62,7 +57,7 @@ export class MapSelectorModalPage implements AfterViewInit {
     this.previousMarker = marker; // Update the reference to the new marker
   
     const infowindow = new google.maps.InfoWindow({
-      content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+      content: `Location: ${name}<br>Latitude: ${location.lat()}<br>Longitude: ${location.lng()}`
     });
     this.markerService.markerLatLng = [location.lat(), location.lng()];
     infowindow.open(this.map, marker);
@@ -71,11 +66,9 @@ export class MapSelectorModalPage implements AfterViewInit {
   initMap() {
     let latLng;
     if (this.defaultLatLng) {
-      this.showSubmitButton = false;
       const [lat, lng] = this.defaultLatLng.split(',').map(coord => parseFloat(coord.trim()));
       latLng = new google.maps.LatLng(lat, lng);
     } else {
-      this.showSubmitButton = true;
       latLng = new google.maps.LatLng(-27.5522951875278, 153.05107960000726);
     }
     
@@ -88,7 +81,13 @@ export class MapSelectorModalPage implements AfterViewInit {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
     if (this.defaultLatLng) {
-      this.placeMarker(latLng);
+      this.placeMarker(latLng, this.locationName || 'Selected Location');
+      this.showSubmitButton = false; // Disable the submit button when viewing a location
+    } else {
+      this.showSubmitButton = true; // Enable the submit button when adding a new location
+      google.maps.event.addListener(this.map, 'click', (event: { latLng: any }) => {
+        this.placeMarker(event.latLng, 'Selected Location');
+      });
     }
   }
 }

@@ -86,18 +86,30 @@ export class HomePage implements OnInit {
     this.tripService.removeLocation(index);
   }
 
+  async viewLocation(index: number) {
+    const currentTrip = this.tripService.getCurrentTrip();
+    if (currentTrip) {
+      const latLng = currentTrip.locationLatLngs[index];
+      const locationName = currentTrip.locations[index];
+
+      const modal = await this.modalController.create({
+        component: MapSelectorModalPage,
+        cssClass: 'map-selector-modal',
+        componentProps: {
+          defaultLatLng: latLng,
+          locationName: locationName,
+        }
+      });
+      return await modal.present();
+    }
+  }
+
   // open mapSelector modal
-  async mapSelector(defaultLatLng: string | null = null) {
+  async mapSelector() {
     const modal = await this.modalController.create({
       component: MapSelectorModalPage,
       cssClass: 'map-selector-modal',
-      componentProps: { defaultLatLng }
     });
     return await modal.present();
-  }
-
-  viewLocation(index: number) {
-    const latLng = this.getCurrentTripLocationLatLngs(index);
-    this.mapSelector(latLng);
   }
 }
