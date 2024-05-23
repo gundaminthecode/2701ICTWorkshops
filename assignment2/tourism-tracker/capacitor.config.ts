@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'au.com.domain.tourismtracker',
-  appName: 'tourismtracker',
+  appName: 'Tourism Tracker',
   webDir: 'www'
 };
 
