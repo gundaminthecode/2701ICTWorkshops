@@ -1,0 +1,10 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{ locationName }}</ion-card-title>
+    <ion-card-subtitle>{{ visitDate }}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <p *ngIf="lat && lng">Latitude: {{ lat }}, Longitude: {{ lng }}</p>
+    <ion-button href="{{ mapUrl }}" target="_blank">View on Map</ion-button>
+  </ion-card-content>
+</ion-card>

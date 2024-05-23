@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ViewTripModalComponent } from './view-trip-modal.component';
+import { LocationCardComponent } from './location-card.component';
 
-describe('ViewTripModalComponent', () => {
-  let component: ViewTripModalComponent;
-  let fixture: ComponentFixture<ViewTripModalComponent>;
+describe('LocationCardComponent', () => {
+  let component: LocationCardComponent;
+  let fixture: ComponentFixture<LocationCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewTripModalComponent ],
+      declarations: [ LocationCardComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewTripModalComponent);
+    fixture = TestBed.createComponent(LocationCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

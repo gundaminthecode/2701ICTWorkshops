@@ -12,10 +12,6 @@ export const routes: Routes = [
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
   },
   {
-    path: 'view-trip-modal',
-    loadComponent: () => import('./modals/view-trip-modal/view-trip-modal.component').then( m => m.ViewTripModalComponent)
-  },
-  {
     path: 'edit-trip-modal',
     loadComponent: () => import('./modals/edit-trip-modal/edit-trip-modal.component').then( m => m.EditTripModalComponent)
   },
