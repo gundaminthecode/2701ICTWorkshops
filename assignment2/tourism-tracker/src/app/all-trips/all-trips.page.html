@@ -15,17 +15,12 @@
     <ion-list>
       <!-- generate a sliding list of all trips with newest at the top -->
       <ion-item-sliding *ngFor="let trip of allTrips.slice().reverse(); index as i"> 
-        <ion-item>
-          <p>{{allTrips.length - i}}. {{trip.journeyName}}, {{trip.locations.length}} Locations</p>
-        </ion-item>
-        <ion-item-options>
-          <ion-item-option color="success" (click)="editTrip(trip)">
-            Edit
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="this.tripService.removeTrip(trip)">
-            Delete
-          </ion-item-option>
-        </ion-item-options>
+        <app-journey-card
+          [journeyNumber]="allTrips.length - i"
+          [journeyName]="trip.journeyName"
+          [locationsVisited]="trip.locations.length"
+          [trip]="trip">
+        </app-journey-card>
       </ion-item-sliding>
     </ion-list>
 

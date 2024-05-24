@@ -10,7 +10,7 @@ import { TripServiceService } from '../services/trip-service.service';
 import { Trip } from '../models/trip.model';
 import { Chart } from 'chart.js/auto';
 import { ElementRef } from '@angular/core';
-import { LocationCardComponent } from '../location-card/location-card.component';
+import { JourneyCardComponent } from '../journey-card/journey-card.component';
 
 import { EditTripModalComponent } from '../modals/edit-trip-modal/edit-trip-modal.component';
 
@@ -22,7 +22,7 @@ import { EditTripModalComponent } from '../modals/edit-trip-modal/edit-trip-moda
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonToolbar, IonItemOptions, IonItemOption, IonItem, IonList, IonItemSliding,
     IonGrid, IonRow, IonCol,
-    CommonModule, FormsModule, LocationCardComponent
+    CommonModule, FormsModule, JourneyCardComponent
   ],
   providers: [ModalController],
 })

@@ -1,0 +1,11 @@
+<ion-item>
+  <p>{{journeyNumber}}. {{journeyName}}, {{locationsVisited}} Locations</p>
+</ion-item>
+<ion-item-options>
+  <ion-item-option color="success" (click)="editTrip(trip)">
+    Edit
+  </ion-item-option>
+  <ion-item-option color="danger" (click)="deleteTrip(trip)">
+    Delete
+  </ion-item-option>
+</ion-item-options>
