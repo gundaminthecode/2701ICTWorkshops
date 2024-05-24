@@ -1,5 +1,15 @@
 <ion-item>
   <p>{{journeyNumber}}. {{journeyName}}, {{locationsVisited}} Locations</p>
+  <ion-button fill="clear" slot="end" (click)="toggleDropdown()">
+    <ion-icon slot="icon-only" [name]="dropdownVisible ? 'chevron-up' : 'chevron-down'"></ion-icon>
+  </ion-button>
+</ion-item>
+<ion-item *ngIf="dropdownVisible" class="dropdown-content">
+  <ion-list>
+    <ion-item button (click)="viewDetails(trip)">View Details</ion-item>
+    <ion-item button (click)="shareTrip()">Share Trip</ion-item>
+    <!-- Add more dropdown items here -->
+  </ion-list>
 </ion-item>
 <ion-item-options>
   <ion-item-option color="success" (click)="editTrip(trip)">

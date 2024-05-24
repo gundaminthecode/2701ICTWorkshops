@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { AllTripsPage } from '../all-trips/all-trips.page';
 import { Trip } from '../models/trip.model';
 import { TripServiceService } from '../services/trip-service.service';
+import { addIcons } from 'ionicons';
+import { chevronDown, chevronUp } from 'ionicons/icons';
 
 @Component({
   selector: 'app-journey-card',
@@ -23,10 +25,18 @@ export class JourneyCardComponent {
   @Input() locationsVisited!: number;
   @Input() trip!: any;
 
+  dropdownVisible = false;
+
   constructor(
     private allTripsPage: AllTripsPage,
     private tripService: TripServiceService
-  ) { }
+  ) {
+    addIcons({ chevronDown, chevronUp });
+  }
+
+  toggleDropdown() {
+    this.dropdownVisible = !this.dropdownVisible;
+  }
 
   editTrip(trip: Trip){
     this.allTripsPage.editTrip(trip)
@@ -34,5 +44,13 @@ export class JourneyCardComponent {
 
   deleteTrip(trip: Trip){
     this.tripService.removeTrip(trip)
+  }
+
+  viewDetails(trip: Trip) {
+    // Implement view details logic
+  }
+
+  shareTrip() {
+    // Implement share trip logic
   }
 }
