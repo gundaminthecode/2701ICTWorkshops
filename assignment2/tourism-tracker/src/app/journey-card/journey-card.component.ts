@@ -9,6 +9,7 @@ import { Trip } from '../models/trip.model';
 import { TripServiceService } from '../services/trip-service.service';
 import { addIcons } from 'ionicons';
 import { chevronDown, chevronUp } from 'ionicons/icons';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-journey-card',
@@ -26,16 +27,22 @@ export class JourneyCardComponent {
   @Input() trip!: any;
 
   dropdownVisible = false;
+  imagesDropdownVisible = false;
 
   constructor(
     private allTripsPage: AllTripsPage,
-    private tripService: TripServiceService
+    private tripService: TripServiceService,
+    private alertController: AlertController
   ) {
     addIcons({ chevronDown, chevronUp });
   }
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
+  }
+
+  toggleImagesDropdown() {
+    this.imagesDropdownVisible = !this.imagesDropdownVisible;
   }
 
   editTrip(trip: Trip){
@@ -46,11 +53,13 @@ export class JourneyCardComponent {
     this.tripService.removeTrip(trip)
   }
 
-  viewDetails(trip: Trip) {
-    // Implement view details logic
-  }
+  async shareTrip() {
+    const alert = await this.alertController.create({
+      header: 'Share',
+      message: 'Shared Successfully!',
+      buttons: ['OK']
+    });
 
-  shareTrip() {
-    // Implement share trip logic
+    await alert.present();
   }
 }

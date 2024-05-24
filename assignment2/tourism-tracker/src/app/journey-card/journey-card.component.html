@@ -6,7 +6,16 @@
 </ion-item>
 <ion-item *ngIf="dropdownVisible" class="dropdown-content">
   <ion-list>
-    <ion-item button (click)="viewDetails(trip)">View Details</ion-item>
+    <ion-item>View Images
+      <ion-button fill="clear" slot="end" (click)="toggleImagesDropdown()">
+        <ion-icon slot="icon-only" [name]="imagesDropdownVisible ? 'chevron-up' : 'chevron-down'"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item *ngIf="imagesDropdownVisible" class="images-dropdown-content">
+      <ion-list>
+        <ion-item>HI</ion-item>
+      </ion-list>
+    </ion-item>
     <ion-item button (click)="shareTrip()">Share Trip</ion-item>
     <!-- Add more dropdown items here -->
   </ion-list>
