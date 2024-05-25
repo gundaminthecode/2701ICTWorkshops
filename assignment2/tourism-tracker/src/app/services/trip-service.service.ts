@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Trip } from '../models/trip.model';
 import { Storage } from '@ionic/storage-angular';
 import { AlertController } from '@ionic/angular/standalone';
+import { ImageServiceService } from './image-service.service';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class TripServiceService {
   onTrip = false;
   STORAGE_KEY = 'allTrips'
 
-  constructor(private storage: Storage, private alertController: AlertController,) { }
+  constructor(private storage: Storage, private alertController: AlertController, private imageService: ImageServiceService) { }
 
   async initialiseStorage() {
     const trips = await this.storage.get(this.STORAGE_KEY);
@@ -96,6 +97,26 @@ export class TripServiceService {
     return this.allTrips.find(trip => trip.complete === false);
   }
 
+  getCurrentTripId(): number {
+    const currentTrip = this.getCurrentTrip();
+    if (currentTrip) {
+      // Assuming `allTrips` contains the trips and `currentTrip` can be identified by its index
+      const index = this.allTrips.findIndex(trip => trip === currentTrip);
+      return index;  // This assumes index will always be valid
+    }
+    throw new Error("No current trip available");
+  }
+
+  getCurrentTripLocationIds(): number[] {
+    const currentTrip = this.getCurrentTrip();
+    if (currentTrip) {
+      // Return an array of indices based on the length of the locations array
+      return currentTrip.locations.map((_, index) => index);
+    }
+    return []; // Return an empty array if there is no current trip
+  }
+  
+
   addLocation(location: string, date: string, markerLatLng: string) {
     const currentTrip = this.getCurrentTrip();
     if (currentTrip) {
@@ -125,11 +146,13 @@ export class TripServiceService {
     }
   }
 
-  removeTrip(trip: Trip) {
+  async removeTrip(trip: Trip) {
     const index = this.allTrips.findIndex(t => t.journeyName === trip.journeyName && t.dateStarted === trip.dateStarted);
     if (index !== -1) {
       this.allTrips.splice(index, 1);
       this.saveTrips();
+
+      await this.imageService.removeImagesByJourneyId(index);
     }
   }
 

@@ -23,7 +23,7 @@
         Date started: {{ this.tripService.getCurrentTrip()?.dateStarted}}
       </ion-card-subtitle>
       <ion-card-content>
-        <ion-label>Add Location:</ion-label>
+        <ion-label>Add Location</ion-label>
           <ion-item>
             <ion-input [(ngModel)]="newLocation" name="newLocation" type="text" placeholder="Location Name"></ion-input>
           </ion-item>
@@ -38,9 +38,41 @@
         <ion-list>
           <ion-item *ngFor="let location of this.tripService.getCurrentTrip()?.locations; let i = index">
             {{ location }} ({{ getCurrentTripLocationDates(i) || ''}}) 
-            <!-- <br> LatLng: {{getCurrentTripLocationLatLngs(i) || ''}} -->
             <ion-button (click)="viewLocation(i)" slot="end">View on Map</ion-button>
             <ion-button (click)="removeLocation(i)" color="danger" slot="end">Delete</ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+      <ion-card-content>
+        <ion-label>Upload Images</ion-label>
+        <ion-item>
+          <ion-label>Image Name:</ion-label>
+          <ion-input [(ngModel)]="imageName" type="text" placeholder="Enter image name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Location:</ion-label>
+          <ion-select [(ngModel)]="selectedLocationIndex" (ionChange)="onLocationSelectChange()" placeholder="Select Location">
+            <ion-select-option *ngFor="let location of this.tripService.getCurrentTrip()?.locations; let i = index" [value]="i">
+              {{ location }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <input id="fileInput" type="file" accept="image/*" (change)="prepareImage($event)">
+        </ion-item>
+        <ion-button (click)="uploadImage()">Upload</ion-button>
+      </ion-card-content>
+
+      <!-- Display uploaded images -->
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let image of currentTripImages">
+            <ion-thumbnail slot="start">
+              <img [src]="image.imageURL">
+            </ion-thumbnail>
+            <ion-label>
+              {{ image.imageName }}
+            </ion-label>
           </ion-item>
         </ion-list>
       </ion-card-content>
