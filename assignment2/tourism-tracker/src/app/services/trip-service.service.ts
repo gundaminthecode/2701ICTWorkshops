@@ -107,6 +107,15 @@ export class TripServiceService {
     throw new Error("No current trip available");
   }
 
+  getThisTripId(thisTrip: Trip): number {
+    const trip = thisTrip;
+    if (trip){
+      const tripIndex = this.allTrips.findIndex(trip => trip === thisTrip);
+      return tripIndex;
+    }
+    throw new Error("Trip Index not Available");
+  }
+
   getCurrentTripLocationIds(): number[] {
     const currentTrip = this.getCurrentTrip();
     if (currentTrip) {

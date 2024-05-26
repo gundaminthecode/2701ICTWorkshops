@@ -13,7 +13,12 @@
     </ion-item>
     <ion-item *ngIf="imagesDropdownVisible" class="images-dropdown-content">
       <ion-list>
-        <ion-item>HI</ion-item>
+        <ion-item *ngFor="let image of images">
+          <ion-thumbnail slot="start">
+            <img [src]="image.imageURL">
+          </ion-thumbnail>
+          <ion-label>{{ image.imageName }}</ion-label>
+        </ion-item>
       </ion-list>
     </ion-item>
     <ion-item button (click)="shareTrip()">Share Trip</ion-item>

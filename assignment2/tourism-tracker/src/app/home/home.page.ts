@@ -133,7 +133,7 @@ export class HomePage implements OnInit {
         this.preparedImageFile = files[0];
     } else {
         this.preparedImageFile = undefined;
-        console.error('No file selected or file access was blocked.');
+        //console.error('No file selected or file access was blocked.');
     }
   }
 
@@ -142,9 +142,9 @@ export class HomePage implements OnInit {
   }
 
   async uploadImage() {
-    console.log('File Prepared:', this.preparedImageFile);
-    console.log('Image Name:', this.imageName);
-    console.log('Selected Location Index:', this.selectedLocationIndex);
+    // console.log('File Prepared:', this.preparedImageFile);
+    // console.log('Image Name:', this.imageName);
+    // console.log('Selected Location Index:', this.selectedLocationIndex);
   
     if (this.preparedImageFile && this.imageName && this.selectedLocationIndex !== undefined && this.selectedLocationIndex !== null) {
       const file = this.preparedImageFile;
