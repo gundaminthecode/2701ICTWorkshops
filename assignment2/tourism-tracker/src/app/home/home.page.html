@@ -63,18 +63,19 @@
         <ion-button (click)="uploadImage()">Upload</ion-button>
       </ion-card-content>
 
-      <!-- Display uploaded images -->
       <ion-card-content>
-        <ion-list>
-          <ion-item *ngFor="let image of currentTripImages">
-            <ion-thumbnail slot="start">
-              <img [src]="image.imageURL">
-            </ion-thumbnail>
-            <ion-label>
-              {{ image.imageName }}
-            </ion-label>
-          </ion-item>
-        </ion-list>
+        <ion-label>Images by Location</ion-label>
+        <div *ngFor="let location of this.tripService.getCurrentTrip()?.locations; let i = index">
+          <ion-label class="ion-padding">{{ location }}</ion-label>
+          <ion-list *ngIf="imageGroups[i] && imageGroups[i].length">
+            <ion-item *ngFor="let image of imageGroups[i]">
+              <ion-thumbnail slot="start">
+                <img [src]="image.imageURL">
+              </ion-thumbnail>
+              <ion-label>{{ image.imageName }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
       </ion-card-content>
     </ion-card>
 

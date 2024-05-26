@@ -34,6 +34,7 @@ export class HomePage implements OnInit {
   preparedImageFile?: File;
 
   currentTripImages: Image[] = [];
+  imageGroups: { [key: number]: Image[]} = {};
 
   constructor(
     public tripService: TripServiceService,
@@ -51,10 +52,12 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     // Call any necessary methods to refresh data when the view is about to be entered
     this.refreshData();
+    
   }
 
   async refreshData() {
     await this.tripService.initialiseStorage(); // Refresh the data from storage
+    await this.loadCurrentTripImages();
   }
 
   createTrip(){
@@ -178,6 +181,18 @@ export class HomePage implements OnInit {
   async loadCurrentTripImages() {
     const currentTripId = this.tripService.getCurrentTripId();
     this.currentTripImages = await this.imageService.getImagesForCurrentTrip(currentTripId);
+    this.updateImageGroups();
+  }
+
+  updateImageGroups() {
+    const groupedImages: { [key: number]: Image[] } = {};
+    this.currentTripImages.forEach(image => {
+      if (!groupedImages[image.locationId]) {
+        groupedImages[image.locationId] = [];
+      }
+      groupedImages[image.locationId].push(image);
+    });
+    this.imageGroups = groupedImages;
   }
 
 }
